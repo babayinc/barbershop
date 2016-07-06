@@ -39,14 +39,18 @@ post '/visit' do
 		:date_time => 'Enter date and time'
 		}
 
-	errorsh.each do |key, value|
-		if params[key] == ''
-			@error = value
-			return erb :visit
-		end
+	#errorsh.each do |key, value|
+	#	if params[key] == ''
+	#		@error = value
+	#		return erb :visit
+	#	end
+	#end
+
+	@error = errorsh.select {|key,_| params[key] == ""}.values.join(", ")
+
+	if @error != ''
+		return erb :visit
 	end
-
-
 
 	file_obj = File.new("./public/users.txt", "a")
 	file_obj.puts "#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}"
