@@ -32,10 +32,22 @@ post '/visit' do
 	@master = params[:optionsRadios]
 	@master2 = params[:master_select]
 	@color = params[:color]
-	if @user_name == ""
-		@error = "Empty user name"
-		return erb :visit
+
+	errorsh = {
+		:user_name => 'Enter name',
+		:phone => 'Enter phone',
+		:date_time => 'Enter date and time'
+		}
+
+	errorsh.each do |key, value|
+		if params[key] == ''
+			@error = value
+			return erb :visit
+		end
 	end
+
+
+
 	file_obj = File.new("./public/users.txt", "a")
 	file_obj.puts "#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}"
 	file_obj.close
@@ -49,3 +61,4 @@ post '/contacts' do
 	file_obj.puts "#{@users_email}:#{@email_text}"
 	file_obj.close
  end
+

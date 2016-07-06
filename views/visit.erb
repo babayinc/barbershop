@@ -2,15 +2,15 @@
 <form action="/visit" method="POST" role="form">
   <div class="form-group">
     <label>Your name</label>
-    <input id="aaa" name="user_name" type="text" class="form-control" placeholder="Enter your name">
+    <input id="aaa" name="user_name" type="text" class="form-control" placeholder="Enter your name" value ="<%= @user_name %>">
   </div>
   <div class="form-group">
     <label>Your phone</label>
-    <input name="phone" type="text" class="form-control" placeholder="Enter phone">
+    <input name="phone" type="text" class="form-control" placeholder="Enter phone" value ="<%= @phone %>>
   </div>
   <div class="form-group">
     <label>When you come</label>
-    <input name="date_time" type="text" class="form-control" placeholder="Enter date and time">
+    <input name="date_time" type="text" class="form-control" placeholder="Enter date and time" value ="<%= @date_time %>>
   </div>
   <div class="form-group">
     <label>Select barber</label>
@@ -50,5 +50,5 @@
 </form>
 
 <script type="text/javascript">
-  $('#color').simplecolorpicker();
+  $(function(){$('#color').simplecolorpicker()});
 </script>
