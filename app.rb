@@ -13,6 +13,7 @@ get '/' do
 end
 
 get '/about' do
+	@error = "Something"
 	erb :about
 end
 
@@ -31,6 +32,10 @@ post '/visit' do
 	@master = params[:optionsRadios]
 	@master2 = params[:master_select]
 	@color = params[:color]
+	if @user_name == ""
+		@error = "Empty user name"
+		return erb :visit
+	end
 	file_obj = File.new("./public/users.txt", "a")
 	file_obj.puts "#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}"
 	file_obj.close
