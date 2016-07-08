@@ -4,9 +4,13 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
+def get_db
+	return SQLite3::Database.new 'barber.sqlite3'
+end
+
 configure do
-	@db = SQLite3::Database.new 'barber.sqlite3'
-	@db.execute 'CREATE TABLE IF NOT EXISTS 
+	db = get_db
+	db.execute 'CREATE TABLE IF NOT EXISTS 
 		users (
 		Id INTEGER PRIMARY KEY AUTOINCREMENT, 
 		user_name TEXT, 
@@ -68,8 +72,21 @@ post '/visit' do
 	file_obj = File.new("./public/barbe.txt", "a")
 	file_obj.puts "#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}"
 	file_obj.close
+	
+	#@db.execute "INSERT INTO users VALUES(#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}; #{@color})"
+	db = get_db
+	db.execute 'INSERT INTO 
+	users 
+	(
+		user_name,
+		phone,
+		date_time,
+		master,
+		color
+	)
+	VALUES (?, ?, ?, ?, ?)', [@user_name, @phone, @date_time, @@masters[@master], @color]
+
 	erb "#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}; #{@color}"
-	@db.execute "INSERT INTO users VALUES(#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}; #{@color})"
 
 end
 
@@ -77,7 +94,7 @@ post '/contacts' do
 	@users_email = params[:users_email]
 	@email_text = params[:email_text]
 	file_obj = File.new("./public/contacts.txt", "a")
-	file_obj.puts "#{@users_email}:#{@email_text}"
+	file_obj.puts "@users_email:#{@email_text}"
 	file_obj.close
  end
 
