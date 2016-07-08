@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sqlite3'
 
 @@masters = {
 			'Walter_White' => "Walter White", 
@@ -52,10 +53,14 @@ post '/visit' do
 		return erb :visit
 	end
 
-	file_obj = File.new("./public/users.txt", "a")
+	file_obj = File.new("./public/barbe.txt", "a")
 	file_obj.puts "#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}"
 	file_obj.close
 	erb "#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}; #{@color}"
+	#db = sqlite3::database.new 'barber.sqlite3'
+	#db.execute "INSERT INTO users VALUES(#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}; #{@color})"
+	#db.close if db
+
 end
 
 post '/contacts' do

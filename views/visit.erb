@@ -17,7 +17,7 @@
     <% @@masters.each_key do |master| %>
 	    <div class="radio">
   	    <label>
-          <input type="radio" name=optionsRadios value=<%= master %>>
+          <input type="radio" name=optionsRadios value="<%= master %>" <%= master == @master ? 'checked' : '' %>>
             <%= @@masters[master] %>
         </label>
       </div>
@@ -25,9 +25,9 @@
   </div>
   <div class="form-group">
     <label>Select barber</label>
-    <select name="master_select" class="form-control">
+    <select name="master_select" class="form-control" value= <%= @master2 %>>
       <% @@masters.each_key do |master| %>
-   	    <option><%= @@masters[master] %></option>
+   	    <option <%= @@masters[master] == @master2 ? 'selected' : '' %>><%= @@masters[master] %></option>
       <% end %>
     </select>
   </div>
