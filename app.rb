@@ -4,6 +4,18 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
+configure do
+	db = SQLite3::Database.new 'barber.sqlite3'
+	db.execute 'CREATE TABLE IF NOT EXISTS 
+		users (
+		Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+		user_name TEXT, 
+		phone TEXT, 
+		date_time TEXT, 
+		master TEXT, 
+		color TEXT)'
+end
+
 @@masters = {
 			'Walter_White' => "Walter White", 
 			'Jesie_Pinkman' => "Jesie Pinkman", 
@@ -57,9 +69,8 @@ post '/visit' do
 	file_obj.puts "#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}"
 	file_obj.close
 	erb "#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}; #{@color}"
-	#db = sqlite3::database.new 'barber.sqlite3'
-	#db.execute "INSERT INTO users VALUES(#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}; #{@color})"
-	#db.close if db
+	db.execute "INSERT INTO users VALUES(#{@user_name};#{@phone};#{@date_time};#{@@masters[@master]}; #{@master2}; #{@color})"
+	db.close if db
 
 end
 
