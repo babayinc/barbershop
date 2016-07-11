@@ -4,8 +4,19 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
+
 def get_db
-	return SQLite3::Database.new 'barber.sqlite3'
+	db = SQLite3::Database.new 'barber.sqlite3'
+	db.results_as_hash = true
+	return db
+end
+
+def get_users
+	db = get_db
+	db.execute 'SELECT * FROM users' do |row|		
+		s += "User: #{row['user_name']}"
+	end
+	return s
 end
 
 configure do
@@ -40,6 +51,15 @@ end
 
 get '/contacts' do
 	erb :contacts
+end
+
+get '/show_users' do
+
+	#@users = get_users
+	db = get_db
+	@results = db.execute 'SELECT * FROM users'
+	erb :show_users
+
 end
 
 post '/visit' do

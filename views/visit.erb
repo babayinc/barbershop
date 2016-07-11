@@ -10,7 +10,7 @@
   </div>
   <div class="form-group">
     <label>When you come</label>
-    <input name="date_time" type="text" class="form-control" placeholder="Enter date and time" value ="<%= @date_time %>">
+    <input id= "datetimepicker" name="date_time" type="text" class="form-control" placeholder="Enter date and time" value ="<%= @date_time %>">
   </div>
   <div class="form-group">
     <label>Select barber</label>
@@ -51,4 +51,6 @@
 
 <script type="text/javascript">
   $(function(){$('#color').simplecolorpicker()});
+  $('#datetimepicker').datetimepicker();
 </script>
+
