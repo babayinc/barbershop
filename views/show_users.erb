@@ -9,15 +9,15 @@
   		<th>Color</th>
   	</tr>
   </thead>
-  <body>
+  <tbody>
   	<% @results.each do |row| %>
 	  <tr>
 	    <td><%= row['user_name'] %></td>
 	    <td><%= row['phone'] %></td>
 	    <td><%= row['date_time'] %></td>
 	    <td><%= row['master'] %></td>
-	    <td BGCOLOR="<%= row['colors'] %>" ><%= row['colors'] %></td>
+	    <td BGCOLOR="<%= row['color'] %>" ><%= row['color'] %></td>
 	  </tr>
 	<% end %>
-  </body>  
+  </tbody>  
 </table>
