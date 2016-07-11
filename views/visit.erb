@@ -14,11 +14,11 @@
   </div>
   <div class="form-group">
     <label>Select barber</label>
-    <% @@masters.each_key do |master| %>
+    <% @barbers.each do |barber| %>
 	    <div class="radio">
   	    <label>
-          <input type="radio" name=optionsRadios value="<%= master %>" <%= master == @master ? 'checked' : '' %>>
-            <%= @@masters[master] %>
+          <input type="radio" name=optionsRadios value="<%= barber['name'] %>" <%= barber['name'] == @master ? 'checked' : '' %>>
+            <%= barber['name'] %>
         </label>
       </div>
     <% end %>
@@ -26,8 +26,8 @@
   <div class="form-group">
     <label>Select barber</label>
     <select name="master_select" class="form-control" value= <%= @master2 %>>
-      <% @@masters.each_key do |master| %>
-   	    <option <%= @@masters[master] == @master2 ? 'selected' : '' %>><%= @@masters[master] %></option>
+      <% @barbers.each do |barber| %>
+   	    <option <%= barber['name'] == @master2 ? 'selected' : '' %>><%= barber['name'] %></option>
       <% end %>
     </select>
   </div>
